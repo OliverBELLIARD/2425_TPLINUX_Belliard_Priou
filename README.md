@@ -79,6 +79,13 @@ Utilisez la commande suivante :
 ```
 df -h
 ```
+
+On obtient ce descriptif de la mémoire utilisée : 
+
+![image](https://github.com/user-attachments/assets/f3e810d3-98a4-4e67-b43a-ffa7331bdc66)
+
+En faisant la somme de la colonne "used", on additionne la quaintité de mémoire déjà utilisée et on voit que la carte SD est actuellement remplie à environ 1.3G. 
+
 Des scripts sont fournis pour augmenter la taille du système de fichiers et
 profiter de l’ensemble de la carte SD :
 ```
