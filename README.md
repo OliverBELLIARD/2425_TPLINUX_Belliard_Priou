@@ -129,6 +129,7 @@ Lorsque l'on tappe ifconfg dans notre terminal nous obtenons la configuration ac
 
 ![image](https://github.com/user-attachments/assets/192a85ed-f99e-4b93-96be-1df2216c9a88)
 
+On y voit deux interfaces : en premier l'ethernet auquel on vient de se connecter via notre câble et en deuxième nous avons le loopback, qui sera donc toujours sur l'adresse IP 127.0.0.1, mais ce n'est pas ce qui nous intéresse ici.
 
 Pour ces modification, vous allez devoir utiliser vim de la façon suivante :
 - Éditez le fichier avec la commande `vim /etc/network/interfaces`,
