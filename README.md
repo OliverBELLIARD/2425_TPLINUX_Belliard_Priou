@@ -28,5 +28,9 @@ Nous allons flasher la carte SD depuis **Linux, Ubuntu** :
    cd <chemin_vers_img>
    sudo dd if=VEEK_MT2S_LXDE.img of=/dev/sdX bs=4k status=progresssync
    ```
+Nous avons donc bien monté l'image sur notre carte SD en prenant soin de sélectionner "mmcblk0" :  
+
+![image](https://github.com/user-attachments/assets/0e4dc725-4b2a-4c4b-baa8-93d474a77197)
+
 
 ### 1.2 Démarrage
