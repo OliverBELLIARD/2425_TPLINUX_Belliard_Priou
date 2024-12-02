@@ -498,3 +498,26 @@ Réaliser un chenillard qui rempli les conditions suivantes :
 - Récupération du sens de balayage par lecture du fichier `/proc/ensea/dir`  
   
 La solution la plus rapide pour implémenter ce chenillard sera d’utiliser un timer (voir le cours) ou un thread noyau (voir sur internet).
+
+# 4 Petit projet : Afficheurs 7 segments
+
+L’objectif de ce petit projet est d’écrire une application permettant d’afficher l’heure courante sur les afficheurs 7 segments.
+
+## 4.1 Prise en main
+
+En vous inspirant du début du TP2 (Section 2.1), faites fonctionner les afficheurs 7 segments. Vous utiliserez la fonction `mmap()`. 
+La lecture du fichier suivant indique l’adresse de base des afficheurs 7 segments et donnera quelques informations quant à son utilisation.
+  
+`VEEK-MT2S_v.1.0.3_SystemCD/Demonstration/SoC_FPGA/ControlPanel/ControlPanel_QT/fpga.cpp`
+  
+Les afficheurs 7 segments sont appelés "HEX" dans le code (ce qui n’est pas très malin...).
+
+### 4.2 Device Tree et module
+
+Écrire un module permettant d’afficher l’heure sur l’afficheur. 
+Dans le device tree fourni, l’afficheur n’est pas présent. Il faudra donc rajouter un nœud pour y faire référence. Inspirez vous du TP3. 
+Faites attention aux adresses. En particulier, faites le lien entre le fichier consulté précédemment (`fpga.cpp`) et le nœud `ledr`.
+  
+Il y a plusieurs possibilités pour réaliser ce projet :
+- Concevoir une interface entre le noyau et l’espace utilisateur (`procfs`, `device driver`...) et coder l’application du point de vue utilisateur,
+- Récupérer l’heure courante dans le noyau et tout réaliser dans le module.
