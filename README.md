@@ -125,6 +125,11 @@ Vérifiez que vous avez bien 15 GB de disponible sur la carte SD (Pour la maquet
   allow-hotplug eth0
   ```
 
+Lorsque l'on tappe ifconfg dans notre terminal nous obtenons la configuration actuelle de notre carte : 
+
+![image](https://github.com/user-attachments/assets/192a85ed-f99e-4b93-96be-1df2216c9a88)
+
+
 Pour ces modification, vous allez devoir utiliser vim de la façon suivante :
 - Éditez le fichier avec la commande `vim /etc/network/interfaces`,
 - Effacez toutes les lignes inutiles en appuyant deux fois sur la touche `d`
