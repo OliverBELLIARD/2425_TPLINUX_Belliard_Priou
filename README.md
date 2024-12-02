@@ -174,6 +174,12 @@ Effectivement, notre ethernet dispose maintenant d'une adresse IP :
 Nous pouvons maintenant nous connecter en ssh à notre carte, nous n'avons donc plus besoin de notre liaison série et pouvons débrancher notre câble USB.
 
   Une fois connecté en ssh, vous pouvez fermer la liaison série. Sur minicom ça se fait avec la combinaison suivante : `Ctrl+A` puis `Q`
+
+A partir de maintenant on se connectera sur notre carte directement en entrant la commande suivante au lieu de compter sur le port série comme au début du TP : 
+
+```
+ssh root@192.168.0.233
+```
   
 ### 1.4 Découverte de la cible
 #### 1.4.1 Exploration des dossiers /sys/class et /proc
