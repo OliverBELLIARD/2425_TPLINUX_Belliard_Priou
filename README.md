@@ -270,3 +270,50 @@ Pour la suite, tester les programmes suivants (voir cours) :
 
 À cause de la puissance limitée du processeur de la carte cible, la compilation, en particulier la compilation de modules noyau, est relativement longue. 
 Nous allons donc, une fois encore, cross-compiler les modules noyau pour la carte SoC, à l’aide de la VM.
+
+#### 2.3.0 Récupération du Noyau Terasic (c’est déjà fait dans la VM !)
+
+Les commandes suivantes permettent de récupérer les sources du noyau actuellement en fonctionnement sur la carte VEEK :
+```
+git clone https://github.com/terasic/linux-socfpga/
+git checkout 6b20a2929d54
+git config core.abbrev 7
+```
+*Pourquoi ces 2 commandes en plus ?*  
+Faites uname -a sur la carte VEEK, et vous obtenez :
+```
+Linux DE10-Standard 4.5.0-00198-g6b20a29 #32 SMP Thu May 4...
+```
+Le `-g6b20a29` signifie que ce noyau a été compilé avec le commit git `6b20a29`, c’est à dire hash limité à 7 caractères. 
+Or aujourd’hui, on utilise des hash limités à 12 caractères... Voir le mail de Linus Torval à ce sujet.
+
+> Remarque : Ce noyau est une version un peu ancienne de celle d’Altera (Altera/Intel est un bon contributeur au noyau Linux).
+
+#### 2.3.1 Préparation de la compilation
+
+```
+sudo apt install bc
+sudo apt install crossbuild-essential-armhf
+sudo apt install binutils-multiarch
+```
+Notez le chemin vers ces compilateurs : `whereis arm-linux-gnueabihf-gcc`
+
+#### 2.3.2 Récupéreation de la configuration actuelle du noyau
+
+Sur la carte SoC, récupérez le contenu du fichier `/proc/config.gz` dans le dossier des sources du noyau.
+Décompressez ce fichier dans le dossier ~/linux-socfpga/ et renommez le en `.config`.
+```
+gunzip config.gz
+mv config .config
+```
+Lancez les lignes suivantes depuis le dossier `~/linux-socfpga/` :
+```
+export CROSS_COMPILE=<chemin_arm-linux-gnueabihf->
+export ARCH=arm
+make prepare
+make scripts
+```
+Le `<chemin_arm-linux-gnueabihf>` est le chemin noté plus haut sans le gcc final.
+Par exemple : `/usr/bin/arm-linux-gnueabihf-`
+- *Quel est le rôle des lignes commençant par export ?*
+- *Pourquoi le chemin fini par un tiret "-" ?*
