@@ -34,6 +34,7 @@ Nous avons donc bien monté l'image sur notre carte SD en prenant soin de sélec
 
 
 ### 1.2 Démarrage
+
 on insère la carte SD fraichement programmée, nous avons branché la carte VEEK-MT2S et l'avons allumée (bouton rouge).
 Ça clignote de partout et un linux se lance.
 > Nous prenons alors un peu de temps pour explorer les différents programmes fournis sur le bureau de Lxde.
@@ -43,6 +44,7 @@ Nous allons y remédier.
 
 ### 1.3 Connexion au système
 #### 1.3.1 Liaison série
+
 Le premier moyen pour se connecter sur un objet embarqué, c’est très souvent par le port série. Une fois que l’on aura eu accès au DE-10, on configurera le réseau, pour pouvoir ensuite y accéder via ssh.  
 Tout d’abord, déterminer le port à utiliser pour se connecter à la carte. Il y a plusieurs ports USB sur la carte :
 - 2 hôtes usb A
@@ -50,6 +52,7 @@ Tout d’abord, déterminer le port à utiliser pour se connecter à la carte. I
 - 1 usb mini : uart to usb **← c’est celui-là qui nous intéresse.**
 
 #### 1.3.2 Utilisez un logiciel de liaison série
+
 **Sous Linux :** Utilisez minicom pour vous connecter grace au port série.
 ```
 minicom -D /dev/ttyUSBx -b 115200
@@ -95,6 +98,7 @@ Rebootez la carte (proprement !), puis, une fois loggé :
 ```
 ./resize2fs_once
 ```
+<<<<<<< Updated upstream
 
 Une fois ces commandes effectuées, on cherche à vérifier l'espace gagné en répétant 
 ```
@@ -106,8 +110,12 @@ On obtient alors la capture suivante :
 
 On a pas 32G (de toute façon notre carte SD fait 16G donc ça n'aurait pas été possible) mais on voit tout de même un gain de mémoire car /dev/root a maintenant une taille totale de 7.3G avec 1V4G de disponible.
 
+=======
+Vérifiez que vous avez bien 15 GB de disponible sur la carte SD (Pour la maquette 02, la carte SD fait 16 GB).
+>>>>>>> Stashed changes
 
 #### 1.3.3 Configuration réseau
+
 - Branchez la carte VEEK sur le switch via un câble réseau,
 - À l’aide de la commande ifconfig, vérifiez que la carte dispose d’une adresse IP,
 - Éditer le fichier /etc/network/interfaces de la manière suivante :
@@ -156,3 +164,107 @@ En particulier, explorez les répertoires suivants :
 - `/proc/ioport`
 - `/proc/iomem`
 - `/proc/device-tree/sopc@0` à comparer avec le fichier `iomem`.
+
+#### 1.4.2 Compilation croisée
+
+Il existe deux méthodes pour compiler un programme sur le SoC :
+- Directement sur les SoC à l’aide du gcc qui y est installé (`gcc -v`)
+- Sur le PC (beaucoup plus puissant), en utilisant un chaine de compilation croisée sous linux (`apt install gcc-arm-linux-gnueabihf` sous Ubuntu).
+
+Vous allez utiliser la deuxième solution. Pour cela, une VM contenant un linux déjà configuré va vous permettre de faire la compilation directement sur le PC :
+- Lancez VirtualBox et importez la VM suivante `VM-SOC-2019.ova`
+- Sur les PC Windows de l’école, modifiez le répertoire "Dossier de base" (`Machine Base Folder`) dans
+`D:\SOC-2021\VirtualBox VMs` pour éviter d’exploser vos quotas ENSEA.
+- Lancez l’importation.
+- Avant de lancer la VM, modifiez le dossier partagé en le faisant pointer sur un dossier dans "Mes Documents" (ou ailleurs).
+- Lancez la VM, loggez vous (login : ensea, password : ensea).  
+  
+Dans la VM, le répertoire `src` dans le home de ensea, est le dossier partagé.
+Tout ce que vous y placer est visible depuis la VM et depuis le système Hôte.
+
+#### 1.4.3 Hello world !
+Réalisez un programme "Hello World !", compilez-le et testez-le sur la carte
+SoC :
+```c
+// Header file for input output functions
+#include <stdio.h>
+
+int main()
+{
+  printf("Hello World !");
+
+  return 0
+}
+```
+  
+Pour compiler sur la VM, utilisez le cross-compilateur :
+```
+arm-linux-gnueabihf-gcc hello.c -o hello.o
+```
+Vous pouvez vérifier le type de vos exécutables avec la commande file. Essayez de l’exécuter dans la VM.  
+*Que se passe-t-il ?*  
+Comme la carte SOC est sur le réseau, vous pouvez copier l’exécutable directement sur la cible :
+```
+scp chemin_sur_VM root@IP_DE_LA_CARTE_SOC:chemin_sur_SOC
+```
+Tester sur la carte.
+
+#### 1.4.4 Accès au matériel
+
+Un certain nombre de drivers sont fournis.
+Comme tous les drivers sous Linux, ils sont accessible sous forme de fichiers.
+Par exemple pour allumer l’une des LED rouge de la carte, il suffit d’écrire un ’1’ dans le bon fichier :
+```
+echo "1" > /sys/class/leds/fpga_led1/brightness
+```
+Tester d’allumer et d’éteindre d’autres LED.
+
+#### 1.4.5 Chenillard (Et oui, encore !)
+
+Plutôt que de passer par la commande echo, on peut écrire un programme C qui va ouvrir et écrire dans ces fichiers. 
+Écrire un programme en C qui réalise un chenillard.
+
+## 2 Modules kernel (TP2)
+### 2.0 Reprise du TP1
+
+Assurez vous de pouvoir communiquer avec la carte VEEK en ssh ou via le port série. 
+Vous devez pour cela reprendre la configuration du réseau faite au TP1.
+
+### 2.1 Accès aux registres
+
+Avant de travailler avec les modules, vous allez créer un programme qui accède directement aux registres depuis l’espace utilisateur. 
+À cause de la virtualisation de la mémoire, il n’est pas possible d’écrire facilement dans un registre comme nous en avons l’habitude. 
+Il faut en effet remapper la mémoire pour demander à l’OS de nous fournir une adresse virtuelle.  
+  
+Pour cela, on utilisera la fonction `mmap()`
+  
+Le registre du GPIO connecté aux LED est disponible à l’adresse suivante :
+- `0xFF203000`
+Cette méthode permet de prototyper rapidement, mais pose quelques problèmes et limites.  
+*Quels sont-ils ?*
+
+### 2.2 Compilation de module noyau sur la VM
+
+Pour ce TP, vous allez développer vos propres modules noyau. 
+Vous allez avoir besoin des sources du noyau cible (en fait en théorie il faut seulement les includes). 
+Il nous faut les sources exactes du noyau sur lequel le module va être chargé.
+
+Pour compiler des modules noyau dans la VM, vous aurez besoin des paquets suivant :
+```
+sudo apt install linux-headers-amd64
+sudo apt install bc
+```
+À partir du Makefile et du fichier source `hello.c` disponibles sur moodle, compilez votre premier module.
+  
+Utilisez `modinfo`, `lsmod`, `insmod` et `rmmod` pour tester votre module (à utiliser avec sudo) : 
+chargez le et vérifiez que le module fonctionne bien (sudo dmesg).  
+  
+Pour la suite, tester les programmes suivants (voir cours) :
+- utilisation de paramètres au chargement du module
+- création d’un entrée dans /proc
+- utilisation d’un timer
+
+### 2.3 CrossCompilation de modules noyau
+
+À cause de la puissance limitée du processeur de la carte cible, la compilation, en particulier la compilation de modules noyau, est relativement longue. 
+Nous allons donc, une fois encore, cross-compiler les modules noyau pour la carte SoC, à l’aide de la VM.
