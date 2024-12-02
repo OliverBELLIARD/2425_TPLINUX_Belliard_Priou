@@ -15,9 +15,15 @@ Nous allons flasher la carte SD depuis **Linux, Ubuntu** :
    ls /dev
    ```
    > Plusieurs fichiers devraient être apparus, quelque chose du type `/dev/sdX`, `/dev/sdX1`, `/dev/sdX2`...
+      Dans notre cas, notre carte SD semble être gérée via l'interface MMC (Multimedia card). Elle apparaît donc sous "mmcblk0". Elle a aussi 3 partitions, nommées respectivement mmcblk0p1, p2 et p3.  
+
+      En voici un aperçu :
+   
+![image](https://github.com/user-attachments/assets/988564cb-1820-4ba1-b3ba-c18dc2819758)
+
    > Il faut noter bien la lettre (sda, sdb, sdc ou autre). Si on se trompe, on risque d’écraser le disque dur du PC. Et ce serait **très mal**.
    > En cas de doute, faire appel au prof.
-2. Pour flasher la carte SD, tappez simplement les lignes suivantes dans un terminal :
+3. Pour flasher la carte SD, tappez simplement les lignes suivantes dans un terminal :
    ```
    cd <chemin_vers_img>
    sudo dd if=VEEK_MT2S_LXDE.img of=/dev/sdX bs=4k status=progresssync
