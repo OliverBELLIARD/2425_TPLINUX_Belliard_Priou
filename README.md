@@ -159,12 +159,29 @@ Pour ces modification, vous allez devoir utiliser vim de la façon suivante :
 - Quand c’est terminé, tapez sur la touche `Echap` pour revenir en mode command
 - Tapez `:wq` puis sur entrée pour sauvegarder et quitter vim.
 
+Notre fichier interfaces ressemble maintenant à ça : 
+
+![image](https://github.com/user-attachments/assets/8edb315e-d1be-43b8-b092-5d02f1ff1c7e)
+
+  
 Rebootez une nouvelle fois, et là normalement vous allez avoir une adresse IP correcte. Vérifiez avec `ifconfig`.
+
+![image](https://github.com/user-attachments/assets/5145e085-7b74-4493-9fae-08e3431ab380)
+
+Effectivement, notre ethernet dispose maintenant d'une adresse IP :  
+
+**192.168.0.233**
+
 
 - Si tout est correct, vous devez pouvoir pinger avec le PC dans les 2 sens avec :
   ```
   ping <adresse_ip>
   ```
+
+  Nous pouvons effectivement ping mon PC :
+
+  ![image](https://github.com/user-attachments/assets/29d06c38-6ca3-4759-ae58-14cab5a28cc1)
+
 - Vérifiez que dans le fichier /etc/ssh/sshd_config, la ligne suivante est présente :
   ```
   PermitEmptyPasswords yes
@@ -173,6 +190,9 @@ Rebootez une nouvelle fois, et là normalement vous allez avoir une adresse IP c
   ```
   ssh root@<IP_VEEK>
   ```
+
+Nous pouvons maintenant nous connecter en ssh à notre carte, nous n'avons donc plus besoin de notre liaison série et pouvons débrancher notre câble USB.
+
   Une fois connecté en ssh, vous pouvez fermer la liaison série. Sur minicom ça se fait avec la combinaison suivante : `Ctrl+A` puis `Q`
 
 ### 1.4 Découverte de la cible
