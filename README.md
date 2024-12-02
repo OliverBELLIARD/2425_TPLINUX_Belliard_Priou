@@ -316,5 +316,37 @@ make scripts
 ```
 Le `<chemin_arm-linux-gnueabihf>` est le chemin noté plus haut sans le gcc final.
 Par exemple : `/usr/bin/arm-linux-gnueabihf-`
-- *Quel est le rôle des lignes commençant par export ?*
-- *Pourquoi le chemin fini par un tiret "-" ?*
+- *Quel est le rôle des lignes commençant par export ?* 
+- *Pourquoi le chemin fini par un tiret "-" ?* 
+
+#### 2.3.3 Hello World
+
+Nous allons refaire les exercices précédents (Module, timers...) sur la plateforme VEEK. 
+Copiez le code source de la partie précédente. 
+Modifiez le Makefile pour l’adapter à votre situation :
+- Mettre à jour le chemin vers le noyau
+- Ajouter CFLAGS_MODULE=-fno-pic
+  
+Compilez le module avec un simple make.
+Si vous avez changé de terminal, il faudra à nouveau tapper les lignes sui-
+vantes :
+export CROSS_COMPILE=<chemin_arm-linux-gnueabihf->
+export ARCH=arm
+La compilation risque d’échouer car make n’arrive pas à compiler dans le ré-
+pertoire partagé avec Windows ("opération non permise"). Il faudra donc copier
+tout le répertoire en dehors du dossier ~/src. Le plus simple reste de copier le
+dossier ailleurs :
+cp -r ~/src/TP2 ~/
+Une fois complié, copiez le module sur la carte, et charger le. Vérifiez que le
+module fonctionne bien avec la commande dmesg.
+Essayez de compiler vos autres module pour la carte SoC.
+
+#### 2.3.4 Chenillard (Yes !)
+
+On veut créer un chenillard dont on peut modifier :
+- Le pattern depuis le fichier : /proc/ensea/chenille
+- La vitesse au moment du chargement du module.
+Dans un premier temps, vous vous interesserez surtout à la structure du code.
+Ne cherchez pas pour cette séance à piloter les LED, utilisez la dmesg pour vérifier
+le bon fonctionnement de votre module.
+Créez un module respectant ces conditions.
