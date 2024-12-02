@@ -64,7 +64,11 @@ Si rien ne s’affiche, essayez la combinaison suivante :
 Pour vous identifier :
 - login : root
 - password : aucun (vraiment rien, ne tapez que sur entrée)
-  
+
+Une fois connetés on obtient cet aperçu : 
+
+![image](https://github.com/user-attachments/assets/1147d92d-9229-4b8a-95db-08dbd391a70d)
+
 Pour l’exercice, nous allons redémarrer le SoC pour observer la séquence de démarrage. On commence par la commande :
 ```
 reboot
