@@ -137,7 +137,12 @@ Pour ces modification, vous allez devoir utiliser vim de la façon suivante :
 - Insérez une nouvelle ligne en appuyant sur `o`. Cette touche vous bascule en mode `-- INSERT --`
 - À partir de là vous pouvez taper le contenu du fichier,
 - Quand c’est terminé, tapez sur la touche `Echap` pour revenir en mode command
-- Tapez `:wq` puis sur entrée pour sauvegarder et quitter vim.  
+- Tapez `:wq` puis sur entrée pour sauvegarder et quitter vim.
+
+Notre fichier interfaces ressemble maintenant à ça : 
+
+![image](https://github.com/user-attachments/assets/8edb315e-d1be-43b8-b092-5d02f1ff1c7e)
+
   
 Rebootez une nouvelle fois, et là normalement vous allez avoir une adresse IP correcte. Vérifiez avec `ifconfig`.
 
