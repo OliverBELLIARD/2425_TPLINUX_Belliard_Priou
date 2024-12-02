@@ -157,6 +157,11 @@ Effectivement, notre ethernet dispose maintenant d'une adresse IP :
   ```
   ping <adresse_ip>
   ```
+
+  Nous pouvons effectivement ping mon PC :
+
+  ![image](https://github.com/user-attachments/assets/29d06c38-6ca3-4759-ae58-14cab5a28cc1)
+
 - Vérifiez que dans le fichier /etc/ssh/sshd_config, la ligne suivante est présente :
   ```
   PermitEmptyPasswords yes
