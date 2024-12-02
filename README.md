@@ -95,7 +95,17 @@ Rebootez la carte (proprement !), puis, une fois loggé :
 ```
 ./resize2fs_once
 ```
-Vérifiez que vous avez bien 32GB de disponible sur la carte SD.
+
+Une fois ces commandes effectuées, on cherche à vérifier l'espace gagné en répétant 
+```
+df -h
+```  
+On obtient alors la capture suivante : 
+
+![image](https://github.com/user-attachments/assets/922d56f7-4245-490c-ba4d-0130b8a002b4)
+
+On a pas 32G (de toute façon notre carte SD fait 16G donc ça n'aurait pas été possible) mais on voit tout de même un gain de mémoire car /dev/root a maintenant une taille totale de 7.3G avec 1V4G de disponible.
+
 
 #### 1.3.3 Configuration réseau
 - Branchez la carte VEEK sur le switch via un câble réseau,
