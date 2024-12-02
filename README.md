@@ -98,7 +98,6 @@ Rebootez la carte (proprement !), puis, une fois loggé :
 ```
 ./resize2fs_once
 ```
-<<<<<<< Updated upstream
 
 Une fois ces commandes effectuées, on cherche à vérifier l'espace gagné en répétant 
 ```
@@ -110,9 +109,7 @@ On obtient alors la capture suivante :
 
 On a pas 32G (de toute façon notre carte SD fait 16G donc ça n'aurait pas été possible) mais on voit tout de même un gain de mémoire car /dev/root a maintenant une taille totale de 7.3G avec 1V4G de disponible.
 
-=======
 Vérifiez que vous avez bien 15 GB de disponible sur la carte SD (Pour la maquette 02, la carte SD fait 16 GB).
->>>>>>> Stashed changes
 
 #### 1.3.3 Configuration réseau
 
