@@ -146,6 +146,13 @@ Notre fichier interfaces ressemble maintenant à ça :
   
 Rebootez une nouvelle fois, et là normalement vous allez avoir une adresse IP correcte. Vérifiez avec `ifconfig`.
 
+![image](https://github.com/user-attachments/assets/5145e085-7b74-4493-9fae-08e3431ab380)
+
+Effectivement, notre ethernet dispose maintenant d'une adresse IP :  
+
+**192.168.0.233**
+
+
 - Si tout est correct, vous devez pouvoir pinger avec le PC dans les 2 sens avec :
   ```
   ping <adresse_ip>
