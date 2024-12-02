@@ -22,3 +22,5 @@ Nous allons flasher la carte SD depuis **Linux, Ubuntu** :
    cd <chemin_vers_img>
    sudo dd if=VEEK_MT2S_LXDE.img of=/dev/sdX bs=4k status=progresssync
    ```
+
+### 1.2 Démarrage
