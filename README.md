@@ -128,12 +128,10 @@ Rebootez une nouvelle fois, et là normalement vous allez avoir une adresse IP c
 
 Explorez un peu votre environnement, par exemple :
 - Répertoires présent sous la racine
-- Dans /proc : cpuinfo, ioports, iomem. Utilisez les commandes cat, less
-ou more pour voir le contenu des fichiers.
-- Le répertoire /sys/class contient des entrées nouvelles (par raport à un
-PC classique), saurez vous les reconnaître ? En particulier, explorez les ré-
-pertoires suivants :
-- /sys/class/leds/fpga_ledX/
-- /proc/ioport
-- /proc/iomem
-- /proc/device-tree/sopc@0 à comparer avec le fichier iomem.
+- Dans `/proc` : cpuinfo, ioports, `iomem`. Utilisez les commandes cat, less ou more pour voir le contenu des fichiers.
+- Le répertoire /sys/class contient des entrées nouvelles (par raport à un PC classique), saurez vous les reconnaître ?
+En particulier, explorez les répertoires suivants :
+- `/sys/class/leds/fpga_ledX/`
+- `/proc/ioport`
+- `/proc/iomem`
+- `/proc/device-tree/sopc@0` à comparer avec le fichier `iomem`.
