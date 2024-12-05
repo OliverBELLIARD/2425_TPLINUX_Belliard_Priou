@@ -196,7 +196,7 @@ Nous pouvons maintenant nous connecter en ssh à notre carte, nous n'avons donc 
 
   Une fois connecté en ssh, vous pouvez fermer la liaison série. Sur minicom ça se fait avec la combinaison suivante : `Ctrl+A` puis `Q`
 
-A partir de maintenant on se connectera sur notre carte directement en entrant la commande suivante au lieu de compter sur le port série comme au début du TP : 
+A partir de maintenant on se connectera sur notre carte directement en entrant la commande SSH suivante au lieu de compter sur le port série comme en début du TP : 
 
 ```
 ssh root@192.168.0.233
