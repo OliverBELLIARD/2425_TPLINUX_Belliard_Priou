@@ -234,7 +234,7 @@ Vous allez utiliser la deuxième solution. Pour cela, une VM contenant un linux 
 - Lancez la VM, loggez vous (login : ensea, password : ensea).
 
 Dans la VM, le répertoire `src` dans le home de ensea, est le dossier partagé.
-Tout ce que vous y placer est visible depuis la VM et depuis le système Hôte.
+Tout ce que vous y placez est visible depuis la VM et depuis le système Hôte.
 
 #### 1.4.3 Hello world !
 
