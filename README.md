@@ -338,7 +338,15 @@ int main() {
 
     return 0;
 }
+```
 
+Puis on compile avec la commande :
+```
+arm-linux-gnueabihf-gcc chenillard.c -o chenillard.o
+```
+Et on exécute avec la commande :
+```
+sudo ./chenillard.o
 ```
 
 ## 2 Modules kernel (TP2)
