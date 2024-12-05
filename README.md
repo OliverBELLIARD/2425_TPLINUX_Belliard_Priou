@@ -270,8 +270,9 @@ Comme la carte SOC est sur le réseau, vous pouvez copier l’exécutable direct
 scp chemin_sur_VM root@IP_DE_LA_CARTE_SOC:chemin_sur_SOC
 ```
 Après avoir effectué cette la commande, on voit sur la maquette :  
-  
 
+![image](https://github.com/user-attachments/assets/4cec2df8-7f3c-4d7f-a039-455e143f84b4)
+  
 Tester sur la carte.  
   
 ![Screenshot from 2024-12-05 11-17-29](https://github.com/user-attachments/assets/7ba0c22d-50fd-48f3-9600-688da8cf16d2)
@@ -358,7 +359,8 @@ sudo ./chenillard.o
 ```
 Après éxécution, notre chenillard fonctionne :  
   
-![image](https://github.com/user-attachments/assets/80335a14-0ffd-4c22-a627-cc2e63e1cad1)  
+![IMG_3790](https://github.com/user-attachments/assets/cd2e1cd2-7ba5-4fbe-87a3-eedc70fd1dd3)
+
   
 
 ## 2 Modules kernel (TP2)
