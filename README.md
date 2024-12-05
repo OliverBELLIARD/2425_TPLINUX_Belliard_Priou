@@ -261,13 +261,19 @@ arm-linux-gnueabihf-gcc hello.c -o hello.o
 
 Vous pouvez vérifier le type de vos exécutables avec la commande `file`. Essayez de l’exécuter dans la VM.  
 _Que se passe-t-il ?_  
+
+![Screenshot from 2024-12-05 11-09-29](https://github.com/user-attachments/assets/cec6e302-b9d1-4d78-a8a0-0384e0952d3d)  
+  
 Comme la carte SOC est sur le réseau, vous pouvez copier l’exécutable directement sur la cible :
 
 ```
 scp chemin_sur_VM root@IP_DE_LA_CARTE_SOC:chemin_sur_SOC
 ```
 
-Tester sur la carte.
+Tester sur la carte.  
+  
+![Screenshot from 2024-12-05 11-17-29](https://github.com/user-attachments/assets/7ba0c22d-50fd-48f3-9600-688da8cf16d2)
+  
 
 #### 1.4.4 Accès au matériel
 
