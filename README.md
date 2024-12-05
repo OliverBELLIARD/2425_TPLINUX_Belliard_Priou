@@ -249,7 +249,7 @@ int main()
 {
   printf("Hello World !");
 
-  return 0
+  return 0;
 }
 ```
 
@@ -259,7 +259,7 @@ Pour compiler sur la VM, utilisez le cross-compilateur :
 arm-linux-gnueabihf-gcc hello.c -o hello.o
 ```
 
-Vous pouvez vérifier le type de vos exécutables avec la commande file. Essayez de l’exécuter dans la VM.  
+Vous pouvez vérifier le type de vos exécutables avec la commande `file`. Essayez de l’exécuter dans la VM.  
 _Que se passe-t-il ?_  
 Comme la carte SOC est sur le réseau, vous pouvez copier l’exécutable directement sur la cible :
 
