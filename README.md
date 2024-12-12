@@ -418,6 +418,7 @@ Les commandes suivantes permettent de récupérer les sources du noyau actuellem
 
 ```
 git clone https://github.com/terasic/linux-socfpga/
+cd linux-socfpga/
 git checkout 6b20a2929d54
 git config core.abbrev 7
 ```
