@@ -529,10 +529,25 @@ Le chemin fini par un "-" pour que le système puisse trouver tous les outils n�
 
 Nous allons refaire les exercices précédents (Module, timers...) sur la plateforme VEEK.
 Copiez le code source de la partie précédente.
-Modifiez le Makefile pour l’adapter à votre situation :
-
+Modifiez le Makefile pour l’adapter à votre situation :  
+  
 - Mettre à jour le chemin vers le noyau
 - Ajouter CFLAGS_MODULE=-fno-pic
+
+Ce qui nous amène à avoir le Makefile suivant :  
+```Makefile
+obj-m:=hello.o
+KERNEL_SOURCE=/home/ensea/linux-socfpga/
+CFLAGS_MODULE=-fno-pic
+CC=/usr/bin/arm-linux-gnueabihf-gcc
+
+all :
+	make -C $(KERNEL_SOURCE) M=$(PWD) modules
+clean :
+	make -C $(KERNEL_SOURCE) M=$(PWD) clean
+install :
+	make −C $(KERNEL_SOURCE) M=$(PWD) modules install
+```
 
 Compilez le module avec un simple make.
 Si vous avez changé de terminal, il faudra à nouveau tapper les lignes sui-
@@ -551,7 +566,11 @@ Le plus simple reste de copier le dossier ailleurs :
 ```
 cp -r ~/src/TP2 ~/
 ```
-Une fois complié, copiez le module sur la carte, et charger le. Vérifiez que le
+Après la commande  `make` on a les nouveaux fichiers qui apparaissent :  
+  
+![image](https://github.com/user-attachments/assets/9526ff78-4c67-41e3-ac1d-c5e71481a101)
+  
+Une fois complié, copiez le module sur la carte, et charger le. Vérifiez que le 
 module fonctionne bien avec la commande dmesg.
 Essayez de compiler vos autres module pour la carte SoC.
 
