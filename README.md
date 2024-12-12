@@ -394,8 +394,47 @@ sudo apt install linux-headers-amd64
 sudo apt install bc
 ```
 
-À partir du `Makefile` et du fichier source `hello.c` fournis sur moodle, on peut compiler notre premier module.
+À partir du `Makefile` et du fichier source `hello.c` fournis sur moodle, on peut compiler notre premier module.  
+Le fichier Makefile fourni contient :
+```Makefile
+obj-m:=hello.o
+KERNEL_SOURCE=/lib/modules/$(shell uname -r)/build
 
+all :
+	make -C $(KERNEL_SOURCE) M=$(PWD) modules
+clean :
+	make -C $(KERNEL_SOURCE) M=$(PWD) clean
+install :
+	make −C $(KERNEL_SOURCE) M=$(PWD) modules install
+```
+Et le nouveau fichier `hello.c` fourni contient le code suivant :  
+```c
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/init.h>
+
+#define DRIVER_AUTHOR "Christophe Barès"
+#define DRIVER_DESC "Hello world Module"
+#define DRIVER_LICENSE "GPL"
+
+int hello_init(void)
+{
+	printk(KERN_INFO "Hello world!\n");
+	return 0;
+}
+
+void hello_exit(void)
+{
+	printk(KERN_ALERT "Bye bye...\n");
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
+
+MODULE_LICENSE(DRIVER_LICENSE);
+MODULE_AUTHOR(DRIVER_AUTHOR);
+MODULE_DESCRIPTION(DRIVER_DESC);
+```
 Utilisez `modinfo`, `lsmod`, `insmod` et `rmmod` pour tester votre module (à utiliser avec sudo) :
 chargez le et vérifiez que le module fonctionne bien (sudo dmesg).
 
