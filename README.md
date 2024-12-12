@@ -422,9 +422,8 @@ git checkout 6b20a2929d54
 git config core.abbrev 7
 ```
   
-![image](https://github.com/user-attachments/assets/3b5dc0aa-18fb-403f-ba64-ae70d4f6ce96)  
-
-![image](https://github.com/user-attachments/assets/760e31af-6ae2-4ba6-82ec-ee3f8a41aa51)  
+  ![image](https://github.com/user-attachments/assets/87bf037e-0fdd-4fcf-9458-55b0598ec8eb)  
+  ![image](https://github.com/user-attachments/assets/d86f8ebd-f345-4b62-9a97-c1a1f695c866)  
   
 _Pourquoi ces 2 commandes en plus ?_  
 Faites `uname -a` sur la carte VEEK, et vous obtenez :
