@@ -457,7 +457,9 @@ Décompressez ce fichier dans le dossier ~/linux-socfpga/ et renommez le en `.co
 gunzip config.gz
 mv config .config
 ```
-
+  
+![image](https://github.com/user-attachments/assets/80200a94-1aee-4bab-9102-6df31663a0ec)
+  
 Lancez les lignes suivantes depuis le dossier `~/linux-socfpga/` :
 
 ```
