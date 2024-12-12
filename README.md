@@ -571,7 +571,10 @@ Après la commande  `make` on a les nouveaux fichiers qui apparaissent :
 ![image](https://github.com/user-attachments/assets/9526ff78-4c67-41e3-ac1d-c5e71481a101)
   
 Une fois complié, copiez le module sur la carte, et charger le. Vérifiez que le 
-module fonctionne bien avec la commande dmesg.
+module fonctionne bien avec la commande `dmesg`.  
+  
+![image](https://github.com/user-attachments/assets/d0b15bf2-0327-44ed-9abf-ca2a33a8add9)  
+  
 Essayez de compiler vos autres module pour la carte SoC.
 
 #### 2.3.4 Chenillard (Yes !)
