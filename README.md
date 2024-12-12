@@ -385,18 +385,16 @@ Le registre du GPIO connecté aux LED est disponible à l’adresse suivante :
 
 ### 2.2 Compilation de module noyau sur la VM
 
-Pour ce TP, vous allez développer vos propres modules noyau.
-Vous allez avoir besoin des sources du noyau cible (en fait en théorie il faut seulement les includes).
-Il nous faut les sources exactes du noyau sur lequel le module va être chargé.
+On va ici développer nos propres modules noyau. Pour ce faire, on va avoir besoin des sources du noyau cible.
 
-Pour compiler des modules noyau dans la VM, vous aurez besoin des paquets suivant :
+Pour compiler des modules noyau dans la VM, nous allons avoir besoin des paquets suivant :
 
 ```
 sudo apt install linux-headers-amd64
 sudo apt install bc
 ```
 
-À partir du `Makefile` et du fichier source `hello.c` disponibles sur moodle, compilez votre premier module.
+À partir du `Makefile` et du fichier source `hello.c` fournis sur moodle, on peut compiler notre premier module.
 
 Utilisez `modinfo`, `lsmod`, `insmod` et `rmmod` pour tester votre module (à utiliser avec sudo) :
 chargez le et vérifiez que le module fonctionne bien (sudo dmesg).
