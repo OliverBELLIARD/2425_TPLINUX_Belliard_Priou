@@ -397,7 +397,7 @@ sudo apt install linux-headers-amd64
 sudo apt install bc
 ```
 
-À partir du Makefile et du fichier source `hello.c` disponibles sur moodle, compilez votre premier module.
+À partir du `Makefile` et du fichier source `hello.c` disponibles sur moodle, compilez votre premier module.
 
 Utilisez `modinfo`, `lsmod`, `insmod` et `rmmod` pour tester votre module (à utiliser avec sudo) :
 chargez le et vérifiez que le module fonctionne bien (sudo dmesg).
@@ -424,11 +424,14 @@ git config core.abbrev 7
 ```
 
 _Pourquoi ces 2 commandes en plus ?_  
-Faites uname -a sur la carte VEEK, et vous obtenez :
+Faites `uname -a` sur la carte VEEK, et vous obtenez :
 
 ```
 Linux DE10-Standard 4.5.0-00198-g6b20a29 #32 SMP Thu May 4...
 ```
+
+  ![image](https://github.com/user-attachments/assets/f5cf2a82-eb87-4e05-9cf8-d76269da0db8)
+  
 
 Le `-g6b20a29` signifie que ce noyau a été compilé avec le commit git `6b20a29`, c’est à dire hash limité à 7 caractères.
 Or aujourd’hui, on utilise des hash limités à 12 caractères... Voir le mail de Linus Torval à ce sujet.
