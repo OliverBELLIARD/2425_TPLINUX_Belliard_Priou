@@ -574,7 +574,33 @@ Une fois complié, copiez le module sur la carte, et charger le. Vérifiez que l
 module fonctionne bien avec la commande `dmesg`.  
   
 ![image](https://github.com/user-attachments/assets/d0b15bf2-0327-44ed-9abf-ca2a33a8add9)  
-  
+
+---
+
+### **Résumé des commandes à exécuter :**
+1. Compiler le module (si nécessaire) :
+   ```bash
+   make
+   ```
+2. Charger le module :
+   ```bash
+   sudo insmod hello.ko
+   ```
+3. Vérifier que le module est chargé :
+   ```bash
+   lsmod | grep hello
+   ```
+4. Vérifier les messages du noyau :
+   ```bash
+   dmesg | tail
+   ```
+5. Décharger le module (si nécessaire) :
+   ```bash
+   sudo rmmod hello
+   ```
+
+Cela nous permet de tester et d'interagir avec notre module noyau.
+
 Essayez de compiler vos autres module pour la carte SoC.
 
 #### 2.3.4 Chenillard (Yes !)
