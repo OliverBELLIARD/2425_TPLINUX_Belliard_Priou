@@ -376,6 +376,8 @@ Avant de travailler avec les modules, vous allez créer un programme qui accède
 À cause de la virtualisation de la mémoire, il n’est pas possible d’écrire facilement dans un registre comme nous en avons l’habitude.
 Il faut en effet remapper la mémoire pour demander à l’OS de nous fournir une adresse virtuelle.
 
+On cherche maintenant à créer un programme
+
 Pour cela, on utilisera la fonction `mmap()`
 
 Le registre du GPIO connecté aux LED est disponible à l’adresse suivante :
