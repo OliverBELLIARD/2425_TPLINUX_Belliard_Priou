@@ -547,8 +547,13 @@ export ARCH=arm
 ```
 
 La compilation risque d’échouer car make n’arrive pas à compiler dans le répertoire partagé avec Windows ("opération non permise").
-Il faudra donc copier tout le répertoire en dehors du dossier ~/src. Le plus simple reste de copier le dossier ailleurs :
+Il faudra donc copier tout le répertoire en dehors du dossier ~/src.  
+![image](https://github.com/user-attachments/assets/6819f3d3-59fa-425e-9bad-710f5fac34e4)
+
+Le plus simple reste de copier le dossier ailleurs :  
+```
 cp -r ~/src/TP2 ~/
+```
 Une fois complié, copiez le module sur la carte, et charger le. Vérifiez que le
 module fonctionne bien avec la commande dmesg.
 Essayez de compiler vos autres module pour la carte SoC.
