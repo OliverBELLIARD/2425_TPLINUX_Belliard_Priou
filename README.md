@@ -523,7 +523,9 @@ Les lignes commençant par "export" servent à définir des variables d'environn
 Dans notre cas, CROSS_COMPILE permet de spécifier le compilateur qu'on va utiliser et ARCH spécifie l'architecture cible pour la compilation.  
 Donc ici nous allons utiliser le compilateur arm-linux-gnueabihf pour notre cible ARM. 
 
-- _Quel est le rôle des lignes commençant par export ?_
+Le chemin fini par un "-" pour que le système puisse trouver tous les outils nécessaires en complétant le suffixe avec leurs noms respectifs.
+
+
 - _Pourquoi le chemin fini par un tiret "-" ?_
 
 #### 2.3.3 Hello World
