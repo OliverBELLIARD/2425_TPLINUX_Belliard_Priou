@@ -372,11 +372,8 @@ Après s'être assuré que tout fonctionne, on peut maintenant passer à la suit
 
 ### 2.1 Accès aux registres
 
-Avant de travailler avec les modules, vous allez créer un programme qui accède directement aux registres depuis l’espace utilisateur.
-À cause de la virtualisation de la mémoire, il n’est pas possible d’écrire facilement dans un registre comme nous en avons l’habitude.
-Il faut en effet remapper la mémoire pour demander à l’OS de nous fournir une adresse virtuelle.
-
-On cherche maintenant à créer un programme
+On cherche maintenant à créer un programme qui permet d'accéder directement aux registres du FPGA depuis l'utilisateur (la VM).  
+Comme cette mémoire est virtualisée, nous ne pouvons pas y accéder comme nous en avons l'habitude donc nous allons remapper la mémoire pour demander à l'OS de nous fournir une adresse virtuelle.
 
 Pour cela, on utilisera la fonction `mmap()`
 
