@@ -472,7 +472,9 @@ export ARCH=arm
 make prepare
 make scripts
 ```
-
+  
+![image](https://github.com/user-attachments/assets/428f5aeb-028d-4095-a4e9-70826b5d114c)  
+  
 Le `<chemin_arm-linux-gnueabihf>` est le chemin noté plus haut sans le gcc final.
 Par exemple : `/usr/bin/arm-linux-gnueabihf-`
 
