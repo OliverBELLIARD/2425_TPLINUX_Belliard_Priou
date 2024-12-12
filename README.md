@@ -367,8 +367,8 @@ Après éxécution, notre chenillard fonctionne :
 
 ### 2.0 Reprise du TP1
 
-Assurez vous de pouvoir communiquer avec la carte VEEK en ssh ou via le port série.
-Vous devez pour cela reprendre la configuration du réseau faite au TP1.
+Au début de la séance du second TP on s'assure que la communication avec notre FPGA est toujours opérationnelle en se connectant dans un premier temps par SSH puis en lançant notre programme de chenillard, ce qui résume à peu près ce qu'on a fait à la séance précédente.  
+Après s'être assuré que tout fonctionne, on peut maintenant passer à la suite.
 
 ### 2.1 Accès aux registres
 
