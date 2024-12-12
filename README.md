@@ -450,9 +450,9 @@ sudo apt install binutils-multiarch
 ```
 
 Notez le chemin vers ces compilateurs : `whereis arm-linux-gnueabihf-gcc` :  
-```
-arm-linux-gnueabihf-gcc: /usr/bin/arm-linux-gnueabihf-gcc /usr/share/man/man1/arm-linux-gnueabihf-gcc.1.gz
-```
+  
+![image](https://github.com/user-attachments/assets/068d8756-8827-4702-81b1-2083152b9e67)  
+  
 
 #### 2.3.2 Récupéreation de la configuration actuelle du noyau
 
