@@ -474,6 +474,8 @@ make scripts
 ```
   
 ![image](https://github.com/user-attachments/assets/428f5aeb-028d-4095-a4e9-70826b5d114c)  
+
+La commande `make prepare` nous dit que nous avons 2 warnings puis la commande `make scripts` s'effectue sans erreurs.  
   
 Le `<chemin_arm-linux-gnueabihf>` est le chemin noté plus haut sans le gcc final.
 Par exemple : `/usr/bin/arm-linux-gnueabihf-`
