@@ -519,6 +519,10 @@ La commande `make prepare` nous dit que nous avons 2 warnings puis la commande `
 Le `<chemin_arm-linux-gnueabihf>` est le chemin noté plus haut sans le gcc final.
 Par exemple : `/usr/bin/arm-linux-gnueabihf-`
 
+Les lignes commençant par "export" servent à définir des variables d'environnement qui seront utilisées par les scripts de compilation du noyau.  
+Dans notre cas, CROSS_COMPILE permet de spécifier le compilateur qu'on va utiliser et ARCH spécifie l'architecture cible pour la compilation.  
+Donc ici nous allons utiliser le compilateur arm-linux-gnueabihf pour notre cible ARM. 
+
 - _Quel est le rôle des lignes commençant par export ?_
 - _Pourquoi le chemin fini par un tiret "-" ?_
 
