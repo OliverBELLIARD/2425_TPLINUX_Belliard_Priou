@@ -421,7 +421,12 @@ git clone https://github.com/terasic/linux-socfpga/
 git checkout 6b20a2929d54
 git config core.abbrev 7
 ```
+  
+![image](https://github.com/user-attachments/assets/3b5dc0aa-18fb-403f-ba64-ae70d4f6ce96)  
 
+  
+![image](https://github.com/user-attachments/assets/3b5dc0aa-18fb-403f-ba64-ae70d4f6ce96)  
+    
 _Pourquoi ces 2 commandes en plus ?_  
 Faites `uname -a` sur la carte VEEK, et vous obtenez :
 
