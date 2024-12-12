@@ -446,7 +446,10 @@ sudo apt install crossbuild-essential-armhf
 sudo apt install binutils-multiarch
 ```
 
-Notez le chemin vers ces compilateurs : `whereis arm-linux-gnueabihf-gcc`
+Notez le chemin vers ces compilateurs : `whereis arm-linux-gnueabihf-gcc` :  
+```
+arm-linux-gnueabihf-gcc: /usr/bin/arm-linux-gnueabihf-gcc /usr/share/man/man1/arm-linux-gnueabihf-gcc.1.gz
+```
 
 #### 2.3.2 Récupéreation de la configuration actuelle du noyau
 
