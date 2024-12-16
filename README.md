@@ -604,7 +604,83 @@ Cela nous permet de tester et d'interagir avec notre module noyau.
 Essayez de compiler vos autres module pour la carte SoC.
 
 #### 2.3.4 Chenillard (Yes !)
+```c
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/init.h>
 
+#define DRIVER_AUTHOR "Christophe Barès"
+#define DRIVER_DESC "Hello world Module"
+#define DRIVER_LICENSE "GPL"
+
+// LED constants
+#define NUM_LEDS 9         // Number of LEDs
+#define DELAY_US 100    // Delay in milliseconds (100ms)
+
+void set_led(int led, int state);
+void clear_all_leds();
+void chenillard_exit(void);
+
+// Function to set the brightness of an LED
+void set_led(int led, int state) {
+    char path[50];
+    FILE *led_file;
+
+    // Construct the LED file path
+    snprintk(path, sizeof(path), "/sys/class/leds/fpga_led%d/brightness", led);
+
+    // Open the file for writing
+    led_file = fopen(path, "w");
+    if (led_file == NULL) {
+        return;
+    }
+
+    // Write the state to the file
+    printk(led_file, "%d", state);
+    fls(led_file);
+}
+
+// Function to turn off all LEDs
+void clear_all_leds() {
+	int i = 0;
+    for (i = 1; i <= NUM_LEDS; i++) {
+        set_led(i, 0);
+    }
+}
+
+void chenillard_exit(void)
+{
+	printk(KERN_ALERT "Bye bye...\n");
+}
+
+int main() {
+	int i = 1;
+    while (1) {
+        // Forward sequence
+        for (i = 1; i <= NUM_LEDS; i++) {
+            clear_all_leds();
+            set_led(i, 1);
+            msleep(DELAY_US);
+        }
+
+        // Reverse sequence
+        for (i = NUM_LEDS; i >= 1; i--) {
+            clear_all_leds();
+            set_led(i, 1);
+            msleep(DELAY_US);
+        }
+    }
+
+    return 0;
+}
+
+module_init(main);
+module_exit(chenillard_exit);
+
+MODULE_LICENSE(DRIVER_LICENSE);
+MODULE_AUTHOR(DRIVER_AUTHOR);
+MODULE_DESCRIPTION(DRIVER_DESC);
+```
 On veut créer un chenillard dont on peut modifier :
 
 - Le pattern depuis le fichier : /proc/ensea/chenille
