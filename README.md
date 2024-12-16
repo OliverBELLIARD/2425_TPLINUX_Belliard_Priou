@@ -608,6 +608,9 @@ Essayez de compiler vos autres module pour la carte SoC.
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/init.h>
+#include <linux/fs.h>
+#include <linux/uaccess.h>
+#include <linux/delay.h>
 
 #define DRIVER_AUTHOR "Christophe Barès"
 #define DRIVER_DESC "Hello world Module"
@@ -615,71 +618,90 @@ Essayez de compiler vos autres module pour la carte SoC.
 
 // LED constants
 #define NUM_LEDS 9         // Number of LEDs
-#define DELAY_US 100    // Delay in milliseconds (100ms)
+#define DELAY_MS 100       // Delay in milliseconds
 
-void set_led(int led, int state);
-void clear_all_leds();
-void chenillard_exit(void);
+static void set_led(int led, int state);
+static void clear_all_leds(void);
+static int chenillard_init(void);
+static void chenillard_exit(void);
 
 // Function to set the brightness of an LED
-void set_led(int led, int state) {
+static void set_led(int led, int state) {
     char path[50];
-    FILE *led_file;
+    struct file *led_file;
+    mm_segment_t old_fs;
+    char data[2];
 
     // Construct the LED file path
-    snprintk(path, sizeof(path), "/sys/class/leds/fpga_led%d/brightness", led);
+    snprintf(path, sizeof(path), "/sys/class/leds/fpga_led%d/brightness", led);
 
     // Open the file for writing
-    led_file = fopen(path, "w");
-    if (led_file == NULL) {
+    led_file = filp_open(path, O_WRONLY, 0);
+    if (IS_ERR(led_file)) {
+        printk(KERN_ERR "Failed to open LED file: %s\n", path);
         return;
     }
 
+    // Prepare the data to write
+    snprintf(data, sizeof(data), "%d", state);
+
+    // Switch to kernel memory segment
+    old_fs = get_fs();
+    set_fs(KERNEL_DS);
+
     // Write the state to the file
-    printk(led_file, "%d", state);
-    fls(led_file);
+    kernel_write(led_file, data, strlen(data), &led_file->f_pos);
+
+    // Restore the previous memory segment
+    set_fs(old_fs);
+
+    // Close the file
+    filp_close(led_file, NULL);
 }
 
 // Function to turn off all LEDs
-void clear_all_leds() {
-	int i = 0;
+static void clear_all_leds(void) {
+    int i;
     for (i = 1; i <= NUM_LEDS; i++) {
         set_led(i, 0);
     }
 }
 
-void chenillard_exit(void)
-{
-	printk(KERN_ALERT "Bye bye...\n");
-}
+// Module initialization function
+static int chenillard_init(void) {
+    int i;
 
-int main() {
-	int i = 1;
-    while (1) {
-        // Forward sequence
-        for (i = 1; i <= NUM_LEDS; i++) {
-            clear_all_leds();
-            set_led(i, 1);
-            msleep(DELAY_US);
-        }
+    printk(KERN_INFO "Chenillard module initialized.\n");
 
-        // Reverse sequence
-        for (i = NUM_LEDS; i >= 1; i--) {
-            clear_all_leds();
-            set_led(i, 1);
-            msleep(DELAY_US);
-        }
+    // Main chenillard loop
+    for (i = 1; i <= NUM_LEDS; i++) {
+        clear_all_leds();
+        set_led(i, 1);
+        msleep(DELAY_MS);
+    }
+
+    for (i = NUM_LEDS; i >= 1; i--) {
+        clear_all_leds();
+        set_led(i, 1);
+        msleep(DELAY_MS);
     }
 
     return 0;
 }
 
-module_init(main);
+// Module exit function
+static void chenillard_exit(void) {
+    printk(KERN_INFO "Chenillard module exited. Turning off all LEDs.\n");
+    clear_all_leds();
+}
+
+module_init(chenillard_init);
 module_exit(chenillard_exit);
 
 MODULE_LICENSE(DRIVER_LICENSE);
 MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
+
 ```
 On veut créer un chenillard dont on peut modifier :
 
