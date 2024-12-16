@@ -628,11 +628,8 @@ Nous voulons accéder aux LED en direct. Or le device-tree étant déjà configu
 fichier dts.  
   
 Pour ce TP, nous allons utiliser la première solution :
-- Recherchez le fichier texte :
-  ```
-  VEEK-MT2S_v.1.0.3_SystemCD/Demonstration/SoC_FPGA/
-  ControlPanel/Quartus/soc_system.dts
-  ```
+- Recherchez le fichier texte :  
+  `VEEK-MT2S_v.1.0.3_SystemCD/Demonstration/SoC_FPGA/ControlPanel/Quartus/soc_system.dts`
 - Copiez ce fichier dans votre répertoire de travail et ouvrez le.
 - Recherchez l’entrée ’ledr’ et remplacez :
   ```
