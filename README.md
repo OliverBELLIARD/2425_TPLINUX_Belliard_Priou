@@ -658,10 +658,10 @@ Pour ce TP, nous allons utiliser la première solution :
   mkdir /root/mntboot
   mount /dev/mmcblk0p1 mntboot
   ```
-- dans ce répertoire /root/mntboot, renommez le fichier dtb en .old, et copiez
+- dans ce répertoire `/root/mntboot`, renommez le fichier dtb en .old, et copiez
 le nouveau fichier dtb provenant du PC
 - rebootez la carte VEEK : reboot
-- explorez le nouveau device-tree (/proc/device-tree/sopc@0).
+- explorez le nouveau device-tree (`/proc/device-tree/sopc@0`).
 
 ### 3.1 module accedant au LED via /dev
 
