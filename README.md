@@ -608,58 +608,68 @@ Essayez de compiler vos autres module pour la carte SoC.
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/init.h>
-#include <linux/fs.h>
-#include <linux/uaccess.h>
-#include <linux/delay.h>
+#include <linux/delay.h>      // Pour msleep
+#include <linux/fs.h>         // Pour la gestion des fichiers dans le noyau
+#include <linux/uaccess.h>    // Pour le contexte utilisateur/noyau
 
 #define DRIVER_AUTHOR "Christophe Barès"
-#define DRIVER_DESC "Hello world Module"
+#define DRIVER_DESC "Chenillard Module pour LEDs"
 #define DRIVER_LICENSE "GPL"
 
 // LED constants
-#define NUM_LEDS 9         // Number of LEDs
-#define DELAY_MS 100       // Delay in milliseconds
+#define NUM_LEDS 9         // Nombre de LEDs
+#define DELAY_MS 100       // Délai en millisecondes entre chaque étape
 
-static void set_led(int led, int state);
-static void clear_all_leds(void);
-static int chenillard_init(void);
-static void chenillard_exit(void);
-
-// Function to set the brightness of an LED
-static void set_led(int led, int state) {
-    char path[50];
-    struct file *led_file;
+// Fonction pour écrire dans un fichier (brightness des LEDs)
+static int write_to_file(const char *path, const char *value) {
+    struct file *file;
+    loff_t pos = 0; // Position dans le fichier
     mm_segment_t old_fs;
-    char data[2];
+    int ret = 0;
 
-    // Construct the LED file path
-    snprintf(path, sizeof(path), "/sys/class/leds/fpga_led%d/brightness", led);
-
-    // Open the file for writing
-    led_file = filp_open(path, O_WRONLY, 0);
-    if (IS_ERR(led_file)) {
-        printk(KERN_ERR "Failed to open LED file: %s\n", path);
-        return;
-    }
-
-    // Prepare the data to write
-    snprintf(data, sizeof(data), "%d", state);
-
-    // Switch to kernel memory segment
+    // Changer le contexte mémoire pour pouvoir écrire dans le noyau
     old_fs = get_fs();
     set_fs(KERNEL_DS);
 
-    // Write the state to the file
-    kernel_write(led_file, data, strlen(data), &led_file->f_pos);
+    // Ouvrir le fichier
+    file = filp_open(path, O_WRONLY);
+    if (IS_ERR(file)) {
+        printk(KERN_ERR "Impossible d'ouvrir le fichier : %s\n", path);
+        ret = PTR_ERR(file);
+        set_fs(old_fs);
+        return ret;
+    }
 
-    // Restore the previous memory segment
+    // Écrire dans le fichier
+    vfs_write(file, value, strlen(value), &pos);
+
+    // Fermer le fichier
+    filp_close(file, NULL);
+
+    // Restaurer le contexte mémoire
     set_fs(old_fs);
-
-    // Close the file
-    filp_close(led_file, NULL);
+    return ret;
 }
 
-// Function to turn off all LEDs
+// Fonction pour allumer ou éteindre une LED
+static void set_led(int led, int state) {
+    char path[50] = {0};
+    char value[2] = {0};
+
+    // Construire le chemin du fichier brightness
+    snprintf(path, sizeof(path), "/sys/class/leds/fpga_led%d/brightness", led);
+
+    // Préparer la valeur à écrire
+    value[0] = state ? '1' : '0';
+    value[1] = '\0';
+
+    // Écrire dans le fichier
+    if (write_to_file(path, value) < 0) {
+        printk(KERN_ERR "Erreur lors de l'écriture pour la LED %d\n", led);
+    }
+}
+
+// Fonction pour éteindre toutes les LEDs
 static void clear_all_leds(void) {
     int i;
     for (i = 1; i <= NUM_LEDS; i++) {
@@ -667,32 +677,35 @@ static void clear_all_leds(void) {
     }
 }
 
-// Module initialization function
-static int chenillard_init(void) {
+// Fonction principale du chenillard
+static int __init chenillard_init(void) {
     int i;
 
-    printk(KERN_INFO "Chenillard module initialized.\n");
+    printk(KERN_INFO "Chenillard démarré\n");
 
-    // Main chenillard loop
-    for (i = 1; i <= NUM_LEDS; i++) {
-        clear_all_leds();
-        set_led(i, 1);
-        msleep(DELAY_MS);
-    }
+    while (1) {
+        // Séquence avant
+        for (i = 1; i <= NUM_LEDS; i++) {
+            clear_all_leds();
+            set_led(i, 1);
+            msleep(DELAY_MS);
+        }
 
-    for (i = NUM_LEDS; i >= 1; i--) {
-        clear_all_leds();
-        set_led(i, 1);
-        msleep(DELAY_MS);
+        // Séquence arrière
+        for (i = NUM_LEDS; i >= 1; i--) {
+            clear_all_leds();
+            set_led(i, 1);
+            msleep(DELAY_MS);
+        }
     }
 
     return 0;
 }
 
-// Module exit function
-static void chenillard_exit(void) {
-    printk(KERN_INFO "Chenillard module exited. Turning off all LEDs.\n");
+// Fonction de nettoyage lors du déchargement du module
+static void __exit chenillard_exit(void) {
     clear_all_leds();
+    printk(KERN_INFO "Chenillard arrêté\n");
 }
 
 module_init(chenillard_init);
@@ -701,6 +714,7 @@ module_exit(chenillard_exit);
 MODULE_LICENSE(DRIVER_LICENSE);
 MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
+
 
 ```
 On veut créer un chenillard dont on peut modifier :
