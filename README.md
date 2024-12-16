@@ -632,7 +632,7 @@ static int write_to_file(const char *path, const char *value) {
     set_fs(KERNEL_DS);
 
     // Ouvrir le fichier
-    file = filp_open(path, O_WRONLY);
+    file = filp_open(path, O_WRONLY, 0);
     if (IS_ERR(file)) {
         printk(KERN_ERR "Impossible d'ouvrir le fichier : %s\n", path);
         ret = PTR_ERR(file);
@@ -714,8 +714,6 @@ module_exit(chenillard_exit);
 MODULE_LICENSE(DRIVER_LICENSE);
 MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);
-
-
 ```
 On veut créer un chenillard dont on peut modifier :
 
